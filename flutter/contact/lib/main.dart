@@ -1,41 +1,134 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 
 void main() {
   // runApp 앱 시작해주세요. (const 앱 메인페이지)
-  runApp(const MyApp());
+  runApp(MaterialApp(home : MyApp()));
 }
 
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {}
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  var total = 3;
+  var name = ['김영숙', '피자집', '홍길동'];
+  addOne(){
+    setState(() {
+      total++;
+    });
+  }
+
+  addName(name){
+    setState(() {
+      name.add('name');
+      print(name);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Center(
-          child: Container(width: 50, height: 50, color: Colors.deepPurple,)
-      )
-          // 1. 글자를 넣는 방법
-          //Text('안녕'),
-          // 2. 아이콘을 넣는 방법
-          // Icon(Icons.아이콘 이름)
-          // 3. 이미지는 넣는 방법
-          // Image.asset('경로')
-          // 1) assets 디렉토리 만들기
-          // 2) 이미지 등록
-          // 3) pubspec.yaml에 등록
-          // 4) Image.asset('경로')
-          // 4. 박스를 넣는 방법
-          // 1) Container()
-          // 2) SizedBox()
-          // Container(width: 50, height: 50, color: Colors.deepPurple,)
-          // 스타일을 줄 땐 (스타일명 : 값)
+
+    print(MediaQuery.of(context).size.width);
+
+    return Scaffold(
+        floatingActionButton: Builder(
+          builder: (context) {
+            return FloatingActionButton(
+              onPressed: (){
+                print(context);
+                showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (context){
+                      return DialogUI(addOne : addOne, addName : addName);
+                    });
+              },
+            );
+          }
+        ),
+        appBar: AppBar(
+          title: Text("SSAFY"),
+        leading: Text(total.toString()),),
+        bottomNavigationBar: BottomAppBar(),
+        body: ListView.builder(
+            itemCount: total,
+            itemBuilder: (context, i){
+              return ListTile(
+                leading: Icon(Icons.account_circle_rounded),
+                title: Text(name[i]),
+              );},
+            ),
+      );
+  }
+}
+
+class BottomAppBar extends StatelessWidget {
+  const BottomAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+          Icon(Icons.phone),
+          Icon(Icons.message),
+          Icon(Icons.contact_page),
+        ],
+      ),
     );
   }
 }
+
+class DialogUI extends StatelessWidget {
+  DialogUI({super.key, this.addOne, this.addName});
+
+  final addOne;
+  final addName;
+
+  var inputData = TextEditingController();
+  var inputData2 = '';
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text("Contact"),
+      content: TextField(
+
+        onChanged: (value){
+          inputData2 = value;
+          print(value);
+        },
+      ),
+      actions: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+                onPressed: (){
+                  addName(inputData2);
+                  addOne();
+                  Navigator.pop(context);
+                },
+                child: Text("Cancel")),
+            ElevatedButton(
+                onPressed: (){
+                  Navigator.pop(context);
+                  },
+                child: Text("Yes")),
+          ],
+        )
+      ],
+
+    );
+  }
+}
+

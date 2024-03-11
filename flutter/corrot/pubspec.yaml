@@ -1,5 +1,4 @@
-# pubspec.yaml이라는 파일은 app에 필요한 모든 자료를 넣어 놓은 파일
-name: contact
+name: corrot
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -53,14 +52,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  assets:
-    - assets/
-  # assets에 있는 모든 파일을 쓸것이다.
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-
-  # Material Design 쓰려면 pubspec.yaml에 이 항목이 true라고 되어있어야함.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:

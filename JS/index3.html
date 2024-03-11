@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="alert-box" id="alert">
+      알림창임<button onclick="alert('none')">닫기</button>
+    </div>
+    <button onclick="alert('block')">열기</button>
+    <div class="alert-box" id="alert1">아이디 입력해주세요.</div>
+    <div class="alert-box" id="alert2">비밀번호 입력해주세요.</div>
+    <button onclick="alert('alert1', 'block')">버튼1</button
+    ><button onclick="alert('alert2','block')">버튼2</button>
+    <script>
+      function alert(구멍1, 구멍2) {
+        document.getElementById(구멍1).style.display = 구멍2;
+      }
+    </script>
+  </body>
+</html>
